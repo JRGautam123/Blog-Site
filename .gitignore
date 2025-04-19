@@ -1,0 +1,4 @@
+blogenv/
+db.sqlite3
+*/migrations/__pycache__/
+*/migrations/*.pyc
