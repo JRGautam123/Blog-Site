@@ -65,32 +65,6 @@
 }
 /*  main-css*/
 
-/* hero-section */
-#hero-section{
-    border-radius: 5px;
-    text-align: justify;
-    width: 60%;
-    margin: auto;
-    margin-top: -6rem;
-    
-}
-.intro-div{
-    background-color:whitesmoke;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    padding: 1rem 0;
-    border-radius: 6px;
-   
-
-}
-/* hero-section ends here */
-
-/* latest-blogs */
-#latest-blogs{
-    margin: 4rem 0;
-    padding: 3rem 0;
-
-}
-/* latest-blogs */
 
 
 /* main-css ends here */
@@ -188,11 +162,6 @@ li>a{
 }
 /* hero section media query */
 
-@media (max-width:577px){
-    #hero-section{
-        width: 90%;
-    }
-}
 
 @media (max-width:991px){
     .offcanvas-body{

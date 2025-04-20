@@ -9,8 +9,9 @@
     
     {% block css %}
         <link rel="stylesheet" href="{% static "css/base.css" %}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css
-">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+
+
     {% endblock css %}
 
     {% block javascript %}
@@ -71,7 +72,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#">About</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown category">
                   <a
                     class="nav-link "
                     href="#"
@@ -120,31 +121,14 @@
   </header>
 
 <main>
-  <section id="hero-section">
-    <div class="container ">
-    <div class="intro-div row">
-      
-              <div class="col intro-text-container">
-                  <h2 class='text-center'>Universal Canvas</h2>
-                  <hr>
-                  <p >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt commodi et tempora cum minima amet. Reiciendis provident, distinctio nihil doloribus, repudiandae nisi natus tenetur alias dignissimos repellendus soluta saepe at!</p>
-              </div>
-             
-                 
-          </div>
-          </div>
-    </div>
-  </section>
+  
+  {% block body %}
 
-  <section id='latest-blogs'>
-    <div class="container">
-      <div class="row">
-        <h2>Latest Articles</h2>
-        <div class='fancy-hr'></div>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum, iure, distinctio, officiis laboriosam magnam explicabo saepe officia ducimus hic at adipisci perspiciatis illum recusandae tempore consequatur minima libero labore dolores.</p>
-      </div>
-    </div>
-  </section>
+  
+  {% endblock body %}
+
+
+
 </main>
 
 

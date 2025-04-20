@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+  {{block.super}}
+    <link rel="stylesheet" href="{% static "postapp/css/home_page.css" %}">
+{% endblock css %}
+
+
+
+
+
+
+{% block body %}
+
+{% comment %} hero section {% endcomment %}
+  <section id="hero-section">
+    <div class="container ">
+    <div class="intro-div row">
+      
+              <div class="col intro-text-container">
+                  <h2 class='text-center'>Universal Canvas</h2>
+                  <hr>
+                  <p >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt commodi et tempora cum minima amet. Reiciendis provident, distinctio nihil doloribus, repudiandae nisi natus tenetur alias dignissimos repellendus soluta saepe at!</p>
+              </div>
+            
+                
+          </div>
+          </div>
+    </div>
+  </section>
+{% comment %} hero section {% endcomment %}
+
+{% comment %} latest-post {% endcomment %}
+<section id='latest-blogs'>
+  <div class="container">
+    <div class="section-header-wrapper d-flex justify-content-between align-items-center m-0 p-0">
+      <h2 class='fw-bold'>Latest posts</h2>
+      <a href="" class=''>See All</a>
+
+    </div>
+    
+    <hr class="mt-0 mb-2 p-0">
+  </div>
+  {% include "postapp/includes/blog_card.html" %}
+</section>
+{% comment %} latest-post {% endcomment %}
+{% endblock body %}
+
+
