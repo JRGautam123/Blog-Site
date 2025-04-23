@@ -34,3 +34,16 @@
 .file-input-wrapper {
     overflow-x: auto;
 }
+
+.register-section{
+    padding: 2rem 0;
+    margin-top: 10% !important;
+
+}
+
+@media (max-width:500px)  {
+    .register-section{
+        margin-top: 25% ;
+    }
+    
+}
