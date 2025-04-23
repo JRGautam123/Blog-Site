@@ -3,18 +3,60 @@
 
 {% block css %}
     {{block.super}}
-    <link rel="stylesheet" href="{% static "userapp/css/register.css" %}%}">
+    <link rel="stylesheet" href="{% static "userapp/css/register.css" %}">
 {% endblock css %}
 
 
 {% block body %}
-    <section class="register-section">
-        <div class="container">
-            <form action="register" method="POST" enctype='multipart/form-data'>
-                {% csrf_token %}
-               {{form}}
-               <button class='btn btn-success' type='submit'>Register</button>
-            </form>
+<section class="register-section my-5">
+    <div class="container-fluid px-3">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <div class="card-title text-center">
+                            <h4>Registration Form</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="register" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-2">
+                                <p class="m-0">{{form.username.label_tag}}</p>
+                                {{form.username}}
+                            </div>
+                            <div class="mb-2">
+                                <p class="m-0">{{form.email.label_tag}}</p>
+                                {{form.email}}
+                            </div>
+                            <div class="mb-2">
+                                <p class="m-0">{{form.password1.label_tag}}</p>
+                                {{form.password1}}
+                            </div>
+                            <div class="mb-2">
+                                <p class="m-0">{{form.password2.label_tag}}</p>
+                                {{form.password2}}
+                            </div>
+                            <div class="mb-2">
+                                <p class="m-0">{{form.profile_pic.label_tag}}</p>
+                                <div class="file-input-wrapper">
+                                    {{form.profile_pic}}
+                                </div>
+                            </div>
+                            <hr>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-success w-100" type="submit">Register</button>
+                        <small class="text-muted d-block mt-2">
+                            Already have an account? <a href="">Login here</a>
+                        </small>
+                    </div>
+                        </form>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
 {% endblock body %}

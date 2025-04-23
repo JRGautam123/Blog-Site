@@ -22,10 +22,10 @@
 </head>
 <body>
   <header class="">
-    <div class="nav-wrapper">
+
       <nav class="navbar nav navbar-expand-lg fixed-top py-3 mt-1 rounded-1  ">
-        <div class="container">
-          <a class="navbar-brand  " href="#">Universal Canvas</a>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Universal Canvas</a>
   
           <button
             class="navbar-toggler hamburger  border-0 "
@@ -57,7 +57,7 @@
             </div>
             <hr class="d-lg-none">
             <!-- {% comment %} offcanvas Body {% endcomment %} --> 
-            <div class="offcanvas-body  d-flex flex-lg-row flex-sm-column align-items-sm-center  flex-sm-column">
+            <div class="offcanvas-body navbar-content d-flex flex-lg-row flex-sm-column align-items-sm-center  flex-sm-column">
               <ul class="navbar-nav justify-content-center flex-grow-1 ">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'home_page'%}"
@@ -72,43 +72,30 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#">About</a>
                 </li>
-                <li class="nav-item dropdown category">
-                  <a
-                    class="nav-link "
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Categories
-                  </a>
-                  <ul class="dropdown-menu text-center w-100">
-                    <li><a class="dropdown-item" href="#">Technology</a></li>
-                    <hr class="dropdown-divider">
-                    <li>
-                      <a class="dropdown-item" href="#">Sports</a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">Mathematics</a>
-                    </li>
-                    <hr class="dropdown-divider">
-                    <li>
-                      <a class="dropdown-item" href="#">Entertainment</a>
-                    </li>
-                  </ul>
-                </li>
+                
               </ul>
              
               <div class="login-img-container d-flex justify-content-center align-items-center flex-lg-row gap-3 flex-sm-column">
-                <a href="" class="btn bg-dark text-white rounded-pill px-4">Login</a>
-                <div class="profile-pic " >
-                    <img src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg" alt="">
-  
-                    
-                </div>
+
+                {% if not user.is_authenticated %}
+                    <a href="{% url "login" %}" class="btn bg-dark text-white rounded-pill px-4">Login</a>
+                  {% else %}
+                    {% if  user.userprofile.image.url %}
+                      <a href="{% url "login" %}"> 
+                        <div class="profile-pic " >
+                          <img src="{{ user.userprofile.image.url }}" alt="Profile_pic">
+                        
+                        </div>
+                      </a>
+                      {% else %}
+                      <a href="{% url "login" %}"> 
+                        <div class="profile-pic " >
+                          <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740" alt="Profile_pic">
+                        
+                        </div>
+                      </a>
+                    {% endif %}
+                {% endif %}
               </div>
             </div>
             <!-- {% comment %} offcanvas body ends here {% endcomment %} -->
@@ -116,8 +103,6 @@
           <!-- {% comment %} offcanvas content ends here {% endcomment %} -->
         </div>
       </nav>
-
-    </div>
   </header>
 
 <main>

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{{block.super}}
+<link rel="stylesheet" href="{% static "userapp/css/login_page.css" %}">
+{% endblock css %}
+
+
+
+{% block body %}
+
+
+<section class="login-section my-5">
+    <div class="container-fluid px-3">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <div class="card-title text-center">
+                            <h4>Login Form</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-2">
+                                <p class="m-0">{{form.username.label_tag}}</p>
+                                {{form.username}}
+                            </div>
+                            
+                            <div class="mb-2">
+                                <p class="m-0">{{form.password.label_tag}}</p>
+                                {{form.password}}
+                            </div>
+                           
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-success w-100" type="submit">Login</button>
+                        <small class="text-muted d-block mt-2">
+                            <a href="" class='text-decoration-none'>forgot password</a>
+                            <hr>
+                        </small>
+                        <small class="text-muted d-block mt-2">
+                            Don't have an account? <a href="{% url "user-register" %}">Register here</a>
+                        </small>
+                    </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
