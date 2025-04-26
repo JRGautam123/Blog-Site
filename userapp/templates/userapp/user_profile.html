@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="{% static "userapp/css/user_profile.css" %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css
+">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js
+' defer></script>
+    <script src="{% static  "userapp/js/user_profile.js" %}" defer></script>
+</head>
+<body>
+{% comment %} userprofile section {% endcomment %}
+<section class="profile-section">
+    <div class="container-fluid">
+      <p class='text-center'><i class="fa fa-bars d-md-none fs-3 " data-bs-toggle='offcanvas' data-bs-target='#sidebarOffcanvas'></i></p>
+        <hr class="m-0 p-0 d-md-none d-block">
+      <!-- Offcanvas Sidebar (for small screens) -->
+      <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="sidebarOffcanvas">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class='profile-options'>
+            <li><i class="fa-solid fa-user me-2"></i>Profile</li>
+            <li><i class="fa-solid fa-book-open me-2"></i>My Blogs</li>
+            <li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li>
+            <li class='edit-profile'><i class="fa-solid fa-user-pen me-2 "></i>Edit Profile</li>
+          </ul>
+          <form action="{% url 'logout' %}" method="POST" class=" w-100">
+            {% csrf_token %}
+            <button class="btn bg-dark d-block w-75 my-2 mx-auto text-white rounded-pill logout-btn">Logout</button>
+          </form>
+        </div>
+      </div>
+  
+      <div class="wrapper">
+        <div class="row">
+          <!-- Visible only on md and above -->
+          <div class="col-lg-2 col-md-2 d-none d-md-flex justify-content-between flex-column m-0 p-0 rounded-1 options">
+            <ul class='profile-options  w-100 d-flex flex-column align-items-center '>
+              <li><i class="fa-solid fa-user me-2"></i>Profile</li>
+              <li><i class="fa-solid fa-book-open me-2"></i>My Blogs</li>
+              <li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li>
+              <li class='edit-profile'><i class="fa-solid fa-user-pen me-2  big"></i>Edit Profile</li>
+            </ul>
+            <form action="{% url 'logout' %}" method="POST" class=" w-100">
+              {% csrf_token %}
+              <button class="btn bg-dark d-block w-75 my-2 mx-auto text-white rounded-pill logout-btn">Logout</button>
+            </form>
+          </div>
+  
+          <!-- Main Content Area -->
+           <div class="col-lg-10 col-md-10 col-sm-12 options-detail ">
+            <div class="user-details-container d-flex justify-content-center">
+                <div class="profile-pic-container  col-lg-4   ">
+                    <img src="{{user.userprofile.image.url}}" alt="User profile">
+                </div>
+                <div class="user-details d-flex col-lg-8">
+                  <div class="vertical-line"></div>
+                  <form action="{% url 'profile' %}" method="POST" enctype='multipart/form-data'>
+                      {% csrf_token %}
+                       <div class="mb-2">
+                        <p class="m-0"> {{u_form.username.label_tag}}</p>
+                        {{u_form.username}}
+                       </div>
+                       <div class="mb-2">
+                        <p class="m-0"> {{u_form.first_name.label_tag}}</p>
+                        {{u_form.first_name}}
+                       </div>
+                       <div class="mb-2">
+                        <p class="m-0"> {{u_form.last_name.label_tag}}</p>
+                        {{u_form.last_name}}
+                       </div>
+                       <div class="mb-2">
+                        <p class="m-0"> {{u_form.email.label_tag}}</p>
+                        {{u_form.email}}
+                       </div>
+                       <div class="mb-2">
+                        <p class="m-0"> {{p_form.image.label_tag}}</p>
+                        {{p_form.image}}
+                       </div>
+                       <button class="btn bg-dark w-50 my-2 mx-auto text-white rounded-pill update-btn update" type='submit'>Update profile</button>
+                    </form>
+                </div>
+                <p class='w-100 text-end '><a href="{% url "home_page" %}">Back</a></p>
+            </div>
+            
+          </div> 
+        </div>
+      </div>
+
+    </div>
+  </section>
+  
+
+</body>
+</html>

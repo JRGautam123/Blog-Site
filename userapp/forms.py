@@ -10,7 +10,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model=User
-        fields=['username','email','password1','password2','profile_pic']
+        fields=['username','email','password1','password2','profile_pic','first_name','last_name']
 
     
     def save(self,commit=True):
@@ -23,3 +23,13 @@ class UserRegistrationForm(UserCreationForm):
                 user.userprofile.image=image
                 user.userprofile.save()
         return user
+    
+class UserUpdateFrom(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=['username','first_name','last_name','email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model=UserProfile
+        fields=['image']

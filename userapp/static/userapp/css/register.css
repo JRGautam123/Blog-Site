@@ -1,7 +1,7 @@
 .helptext{
     display: none;
 }
-#id_email ,#id_username,#id_password1,#id_password2{
+#id_email ,#id_username,#id_password1,#id_password2,#id_first_name,#id_last_name{
     width: 100%;
     /* border-radius: 5px; */
     font-size: 20px;
@@ -10,7 +10,7 @@
     border-top: 0;
 }
 
-#id_email:focus ,#id_username:focus,#id_password1:focus,#id_password2:focus{
+#id_email:focus ,#id_username:focus,#id_password1:focus,#id_password2:focus,#id_first_name:focus,#id_last_name:focus{
     outline: none;
     box-shadow: none;
 }

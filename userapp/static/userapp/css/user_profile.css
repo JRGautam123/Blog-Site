@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.profile-section{
+    padding-top:3rem;
+}
+.row{
+    min-height: calc(100vh - 3rem);
+    max-height: fit-content;
+}
+
+
+.options {
+    
+    align-items:center;
+    border-right: 1px solid black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+
+}
+
+.profile-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-basis: 60%;
+}
+
+
+
+
+
+
+.profile-options li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-options li:hover {
+    background-color: whitesmoke;
+}
+
+.profile-options li::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: rgb(20, 100, 100);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.profile-options li:hover::before {
+    opacity: 1;
+}
+
+
+.logout-btn:hover,.update-btn:hover{
+    scale: 1.1;
+    transition: 1s ease-in-out;
+}
+
+.update{
+    display: none !important;
+}
+.updatebtn-added{
+    display: block !important;
+}
+
+
+/* user details css */
+.user-details-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 3rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    /* margin: 2rem 3rem; */
+    background-color:whitesmoke;
+    min-width: fit-content;
+}
+.profile-pic-container{
+    padding: 1rem;
+    flex-basis: 20%; 
+    
+}
+.profile-pic-container >img{
+ width: 200px ;
+ height: 200px;
+ object-fit: cover;
+ /* transform: rotateZ(-5deg); */
+ border-radius: 1px solid black;
+ border-radius: 50%;
+}
+.user-details{
+    /* background-color: red; */
+    max-height: fit-content;
+}
+.vertical-line{
+    width: 5px;
+    max-height: 100%;
+    background-color: black;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.user-details>form{
+    width: 100%;
+}
+
+input{
+ width: 100%;
+ padding: .3rem;
+ border-top:none;
+ border-left:none;
+ border-right: none;
+ background-color: transparent;
+
+ 
+}
+input:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+@media (max-width:768px) {
+    .user-details-container{
+        flex-direction: column;
+
+    }
+    
+}
+@media (max-width:500px) {
+    .profile-pic-container >img{
+        width: 100px;   
+        height: 100px;
+        object-fit: cover;
+       }
+    
+}

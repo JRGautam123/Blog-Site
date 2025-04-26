@@ -81,14 +81,14 @@
                     <a href="{% url "login" %}" class="btn bg-dark text-white rounded-pill px-4">Login</a>
                   {% else %}
                     {% if  user.userprofile.image.url %}
-                      <a href="{% url "login" %}"> 
+                      <a href="{% url "profile" %}"> 
                         <div class="profile-pic " >
                           <img src="{{ user.userprofile.image.url }}" alt="Profile_pic">
                         
                         </div>
                       </a>
                       {% else %}
-                      <a href="{% url "login" %}"> 
+                      <a href="{% url "profile" %}"> 
                         <div class="profile-pic " >
                           <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740" alt="Profile_pic">
                         
