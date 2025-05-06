@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'postapp',
-    'userapp'
+    'userapp',
+    'django_quill'
 ]
 
 MIDDLEWARE = [

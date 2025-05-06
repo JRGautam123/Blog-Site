@@ -28,10 +28,10 @@
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-          <ul class='profile-options'>
+          <ul class='profile-options options-on-sm'>
             <li><i class="fa-solid fa-user me-2"></i>Profile</li>
             <li><i class="fa-solid fa-book-open me-2"></i>My Blogs</li>
-            <li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li>
+            <a href="{% url "create-post" %}"><li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li></a>
             <li class='edit-profile'><i class="fa-solid fa-user-pen me-2 "></i>Edit Profile</li>
           </ul>
           <form action="{% url 'logout' %}" method="POST" class=" w-100">
@@ -45,10 +45,10 @@
         <div class="row">
           <!-- Visible only on md and above -->
           <div class="col-lg-2 col-md-2 d-none d-md-flex justify-content-between flex-column m-0 p-0 rounded-1 options">
-            <ul class='profile-options  w-100 d-flex flex-column align-items-center '>
-              <li><i class="fa-solid fa-user me-2"></i>Profile</li>
+            <ul class='profile-options options-on-lg w-100 d-flex flex-column align-items-center '>
+              <li class="first-li clicked-li"><i class="fa-solid fa-user me-2"></i>Profile</li>
               <li><i class="fa-solid fa-book-open me-2"></i>My Blogs</li>
-              <li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li>
+              <a href="{% url 'create-post' %}"><li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li></a>
               <li class='edit-profile'><i class="fa-solid fa-user-pen me-2  big"></i>Edit Profile</li>
             </ul>
             <form action="{% url 'logout' %}" method="POST" class=" w-100">

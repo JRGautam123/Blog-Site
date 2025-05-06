@@ -7,54 +7,59 @@
 {% block css %}
     {{block.super}}
     <link rel="stylesheet" href="{% static "postapp/css/articles.css" %}">
+    <link rel="stylesheet" href="{% static "postapp/css/blog_card.css" %}">
 {% endblock css %}
+
+{% block javascript %}
+    <script src="{% static "postapp/js/articles.js" %}" defer></script>
+    {{block.super}}
+{% endblock javascript %}
+
 
 
 
 
 
 {% block body %}
-
 <section id="hero-section">
-    <div class="container ">
-    <div class="intro-div row row-cols-lg-2 row-cols-md-2 row-cols-1 g-4">
-      
-            <div class="col intro-text-container">
-                  <h2 class='text-center'>Universal Canvas</h2>
-                  <hr>
-                  <p >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt commodi et tempora cum minima amet. Reiciendis provident, distinctio nihil doloribus, repudiandae nisi natus tenetur alias dignissimos repellendus soluta saepe at!</p>
-            </div>
-
-        
-            <div class="col form-wrapper py-1">
-                <p class='text-center fs-5 '>Search Here</p>
-                <div class="search-form  d-flex justify-content-center align-items-center px-3 m-0">
-                    <form action="#" method="GET" class="">
-                        <input type="text" name="title" id="title" class="form-control my-2 w-100" placeholder="Enter blog title">
-                
-                        <select name="category" id="category" class="form-select my-2 w-100">
-                            <option class='categories' value="">Select a Category</option>
-                            <option class='categories' value="1">Sports</option>
-                            <hr>
-                            <option class='categories' value="2">Technology</option>
-                            <hr>
-                            <option class='categories' value="3">Lifestyle</option>
-                            <hr>
-                            <option class='categories' value="4">Education</option>
-                        </select>
-                
-                        <button type="submit" class="btn btn-light d-block w-50 mx-auto mt-4">Search</button>
-                    </form>
-
+    <div class="container">
+        <div class="intro-div">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h2 class='text-center'>Universal Canvas</h2>
+                    <hr>
+                    <p >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt commodi et tempora cum minima amet. Reiciendis provident, distinctio nihil doloribus, repudiandae nisi natus tenetur alias dignissimos repellendus soluta saepe at!</p>
                 </div>
-                
-            </div>
+
             
+                <div class="col-lg-6 col-md-6  col-12 form-wrapper py-1">
+                    <div class="vertical-line"></div>
+                    <div class="search-form px-3 m-0 p-0 w-100">
+                        <p class='text-center fs-5  fw-bold'>Search Here</p>
+                        <hr>
+                        <form action="{% url "article_page" %}" method="GET" class="">
+                            <input type="text" name="title" id="title" class="form-control my-2 w-100" placeholder="Search By Blog Title">
+                    
+                            <select name="category" id="category" class="form-select my-2 w-100">
+                                <option class='categories' value="">Search By Category</option>
+                                {% for cat in categories %}
+                                <option class='categories' value="{{cat.name}}">{{cat.name}}</option>
+                                {% endfor %}
+                            </select>
+                    
+                            <button type="submit" class="btn btn-dark text-white  rounded-pill d-block w-75 mx-auto mt-4">Search</button>
+                        </form>
+
+                    </div>
+                    
+                </div>
+
+            </div>
                 
-          </div>
-          </div>
+            
+        </div>
     </div>
-  </section>
+</section>
 
 
 
@@ -64,10 +69,60 @@
 
 <section id="result-section">
     <div class="container">
-        <h3>Latest Post</h3>
+        {% if request.GET.title %}
+                 <h3>Post related to {{request.GET.title}}</h3>
+        {% elif  request.GET.category %}
+                <h3>Post related to {{request.GET.category}}</h3>
+        {% else %}
+                <h3>Latest Post</h3>
+        {% endif %}
         <hr>
     </div>
-    {% include "postapp/includes/blog_card.html" %}
+    {% if posts %}
+    {% include "postapp/includes/blog_card.html" with latest_posts=posts %}
+    <hr>
+    <nav aria-label="Page navigation pagination" class='dark-pagination'>
+        <ul class="pagination justify-content-center">
+
+            {# Previous Page Link #}
+            {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}">‹ Previous</a>
+                </li>
+            {% endif %}
+
+            {% for num in posts.paginator.page_range %}
+                {% if num == 1 or num == 2 or num == posts.paginator.num_pages or num == posts.paginator.num_pages|add:"-1" or num >= posts.number|add:"-2" and num <= posts.number|add:"2" %}
+                    {% if num == posts.number %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
+                {% if num == 3 and posts.number > 5 %}
+                    <li class="page-item disabled"><span class="page-link">…</span></li>
+                {% endif %}
+
+                {% if num == posts.paginator.num_pages|add:"-2" and posts.number < posts.paginator.num_pages|add:"-4" %}
+                    <li class="page-item disabled"><span class="page-link">…</span></li>
+                {% endif %}
+            {% endfor %}  
+
+            {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}">Next›</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% else %}
+    <h3 class="text-center no-post-found">No Post Found</h3>
+{% endif %}
+
+    
 </section>
 
 {% endblock body %}

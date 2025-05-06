@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "postapp/css/view_article.css" %}">
+    {{block.super}}
+{% endblock css %}
+
+{% block javascript %}
+    <script src="{% static "postapp/js/view_article.js" %}" defer></script>
+    <script src="{% static "postapp/js/send_comment.js" %}" defer></script>
+    {{block.super}}
+{% endblock javascript %}
+
+
+
+
+
+{% block body %}
+<section id="hero-section">
+    <div class="container">
+        <div class="blog-image-container d-flex justify-content-center align-items-center"
+        style="
+        background-image:url({{post.image.url}});
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-position: center;"
+        
+        >
+            <div class="title">
+                <h1 class='text-center text-white '>{{post.title}}</h1>
+            </div>
+        </div>
+        <hr>
+        <div class="blog-container shadow shadow-2 ">
+            <div class="excerpt">
+                <p>{{post.excerpt}}</p>
+            </div>
+            <div class="content">
+                <p>{{post.content.html|safe}}</p>
+            </div>
+            <hr>
+            <div class='d-flex justify-content-between align-items-center'>
+                {% if  user == post.author %}
+                <a href="{% url "edit-post" slug=post.slug %}" class='btn bg-dark rounded rounded-pill text-white w-25'>Edit Blog</a>
+                {% endif %}
+                <div class="post-info fs-5 fw-bold  d-flex  flex-column align-items-end">
+                    <a href=""><address class='m-0 p-0'>{{post.author.get_full_name|title}}</address></a>
+                    <time datetime="" class='m-0 p-0'>{{post.date|date:"d M, Y"}}</time>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+
+        {% comment %} like div {% endcomment %}
+        <div class="like-div d-flex align-items-center">
+            <div class="like-icon-div {% if user_has_liked %}liked{% endif %}" data-post-slug='{{post.slug}}'>
+                <span class='like-icon'>
+                    <i class="fa-solid  fa-heart"></i>
+                </span>
+            </div>
+            <div class="like-count-div">
+                <span class='like-count'>{{like_count}}</span>
+            </div>
+
+        </div>
+        {% comment %} like div {% endcomment %}
+        <hr>
+        <div class="comment-div">
+            
+            <button class="btn btn-dark outline-none rounded-pill" data-bs-toggle="collapse" data-bs-target="#comment-container" aria-expanded="false" aria-controls="collapseExample">Comments
+                <i class="fa-solid fa-caret-down text-white ms-2"></i>
+            </button>
+            <div class="collapse" id="comment-container">
+                <div class="card card-body">
+                    <form action="#" method="POST" >
+                        <div class="form-elemnt d-flex align-items-center">
+
+                            <textarea name="comment" id="comment" placeholder="Leave Your Thoughts"
+                                {% if not user.is_authenticated %}disabled{% endif %}
+                                ></textarea>
+                                {% if not user.is_authenticated %}
+                                <a href="{% url "login" %}" class=''><i class="fa-solid fa-paper-plane ms-2 send-icon"></i></a>
+                                {% else %}
+                                <i class="fa-solid fa-paper-plane ms-2 send-icon send-parent-comment"
+                                    data-post-slug="{{post.slug}}"
+                                    data-user-id="{{user.id}}"
+                                ></i>
+                                {% endif %}
+                                
+                            </div>
+                            <p class="error-text text-danger"></p>
+                    </form>
+                    <hr>
+                    <div class="comment-content mt-2">
+                    {% for comment in parent_comments  %}
+                        
+                        <div class="parent-comment d-flex algin-items-center">
+                            <div class="user-image">
+                                <img src="{{comment.user.userprofile.image.url}}" alt="">
+                            </div>
+                            <div class="parent-comment-text ms-2 w-100">
+                                <p class='m-0'>
+                                    <a href="" class='text-reset text-decoration-none mx-2' >@{{comment.user.get_full_name}}</a>
+                                   <strong>{{comment.date|timesince}} ago</strong> 
+                                </p>
+                                <p class='mb-1'>{{comment.comment}}</p>
+                              
+                               
+                                <button class="reply-count-btn{{comment.id}} btn btn-dark rounded-pill mx-2 border-0 
+                                 {% if descendent_count|get_item:comment == 0 %}d-none {% endif %}
+                                "
+                                data-bs-toggle='collapse' 
+                                data-bs-target="#replied-text-container{{comment.id}}" 
+                                aria-expanded="false"
+                                aria-controls="collapseExample">
+                                
+                                
+                                <span class='reply-count{{comment.id}} mx-1 my-2'>{{descendent_count|get_item:comment}}</span>
+                                {% if descendent_count|get_item:comment == 1 %}
+                                        Reply
+                                    {% else %}
+                                        Replies
+                                {% endif %}
+                                </button>
+
+                                {% if user.is_authenticated %}
+                                    <button class='reply-btn btn btn-dark rounded-pill border-0 my-2 mx-1'
+                                            data-bs-toggle='collapse' 
+                                            data-bs-target="#form{{comment.id}}"
+                                            aria-expanded="false" 
+                                            aria-controls="collapseExample">
+                                        Reply
+                                    </button>
+                                {% endif %}
+                                <form action="" method='POST'
+                                 id="form{{comment.id}}"
+                                 class = "collapse w-100">
+                                    <div class="form-elemnt d-flex align-items-center">
+                                        <textarea name="parent-reply" id="reply-form{{comment.id}}"></textarea>
+                                        <i 
+                                        class="fa-solid fa-paper-plane ms-2 send-icon send-child-comment"
+                                        data-super-parent="{{comment.id}}"
+                                        data-parent-id="{{comment.id}}"
+                                        data-post-slug="{{post.slug}}"
+                                        data-user-id="{{user.id}}"
+                                        ></i>
+                                    </div>
+
+                                    <p class="text-danger error-text{{comment.id}}"></p>
+                                </form>
+
+                            </div>
+                        </div> 
+                        <hr>
+                        <div id="replied-text-container{{comment.id}}" class='collapse'>
+                            {% for child_comment in descendent_map|get_item:comment %}
+                            <div class="child-comment mx-lg-5 mx-2" id='replied-text-div{{comment.id}}'>
+                                <div class='d-flex align-items-start'>
+                                    <div class="user-image">
+                                        <img src="{{child_comment.user.userprofile.image.url}}" alt="">
+                                    </div>
+                                    <div class="child-comment-text ms-2">
+                                        <p class='m-0'>
+                                            <a href="" class='text-reset text-decoration-none mx-2'>@{{child_comment.user.get_full_name}}</a>
+                                            <strong>{{child_comment.date|timesince}} ago</strong>
+                                        </p>
+                                        <p class='mb-1'><strong class='mx-1'>@{{child_comment.parent_id.user.get_full_name}}</strong>{{child_comment.comment}}</p>
+                                        {% if user.is_authenticated %}
+                                        <button class='reply-btn btn btn-dark rounded-pill mx-2 border-0'
+                                            data-bs-toggle='collapse' 
+                                            data-bs-target="#form{{child_comment.id}}" 
+                                            aria-expanded="false"
+                                            aria-controls="collapseExample">
+                                            Reply
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <form action="" method='POST' id="form{{child_comment.id}}" class='collapse mt-2 w-50'>
+                                    <div class="form-elemnt d-flex align-items-center">
+                                        <textarea name="child-reply" id="reply-form{{child_comment.id}}"></textarea>
+                                        <i
+                                         class="fa-solid fa-paper-plane ms-2 send-icon send-child-comment"
+                                         data-super-parent="{{comment.id}}"
+                                         data-parent-id="{{child_comment.id}}"
+                                         data-post-slug="{{post.slug}}"
+                                         data-user-id="{{user.id}}"
+                                         ></i>
+                                    </div>
+                                    <p class="text-danger error-text{{child_comment.id}}"></p>
+
+                                </form>
+                                <hr>
+                        </div>
+                        {% endfor %}
+                        <hr>
+                        </div>
+                       
+                    {% endfor %}
+                    
+                    
+                    </div>
+                </div>
+            </div>                
+        </div>
+    </div>  
+</section>
+
+
+
+{% endblock body %}

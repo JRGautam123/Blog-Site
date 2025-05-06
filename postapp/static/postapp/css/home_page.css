@@ -3,77 +3,12 @@
 }
 
 
-
-/* hero-section */
-#hero-section{
-    padding: 2rem 0;
-    margin-top: 15% ;
-    margin-bottom: 7.1rem;
-    /* background-color: red; */
-    
-
-    
-    
-}
-
-
-
-.intro-div{
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 6px;
-    width: 60%;
-    margin: auto;
-    max-height: fit-content;
-    padding-top:2rem;
-    
-
-}
-/* hero-section ends here */
-
 /* latest-blogs */
 #latest-blogs{
     margin: 4rem 0;
     padding: 3rem 0;
-    background-color: rgb(213, 229, 229);
     border-radius: 5px;
-
-}
-
-#blog-card{
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    height: fit-content; 
-    padding: 2rem 0;
-}
-
-.card-img-top{
-    height: 200px;
-    object-fit: cover;
-}
-.card-body{
-    overflow: hidden;
-}
-.card-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 5; 
-    -webkit-box-orient: vertical;
-  }
-.card:hover{
-    scale: 1.05;
-    transition: 1s ease-in-out;
-}
-
-/* hero sectio media-query */
-@media (max-width:577px){
-    #hero-section{
-        width: 90%;
-    }
-}
-
-@media (max-width:400px)  {
-    #hero-section{
-        margin-top: 25% ;
-    }
     
 }
+

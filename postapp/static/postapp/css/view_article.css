@@ -1,0 +1,118 @@
+header{
+    display: none !important;
+}
+
+
+#hero-section{
+    /* margin-top: 5rem;
+    padding-top: 3rem ; */
+    /* background-color: rgb(213, 229, 229); */
+    border-radius: 5px;
+
+}
+.blog-image-container{
+    min-height: 20rem;
+    background-color: rgba(46, 42, 101, 0.5);
+    background-blend-mode:  multiply  ;
+    
+   
+}
+
+
+.title{
+   text-align: justify;
+   color: black;
+}
+
+
+.blog-container{
+    /* width: 98%; */
+    margin: 3rem auto;
+    padding: 2rem;
+    height: fit-content;
+    
+}
+.content img{
+    width:60%;
+    display: block;
+    height: 20rem;
+    object-fit:contain;
+    margin: 1.5rem auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
+
+.like-icon-div{
+    background-color: antiquewhite;
+    padding: .4rem;
+    width:fit-content;
+    min-width: 3rem;
+    border: 1px solid black;
+    border-radius:10%;
+    text-align: center;
+    cursor: pointer;
+
+}
+.like-icon{
+    font-size: 20px;
+}
+
+.like-count-div{
+    padding: .42rem;
+    background-color: antiquewhite;
+    font-size: 1.2rem;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin: 1px;
+    width: fit-content;
+    min-width: 3rem;
+    text-align: center;
+
+}
+
+.liked {
+    color: red;
+    transition: color 0.3s ease;
+  }
+
+
+
+
+  /*  comment section css*/
+ 
+  textarea{
+    /* min-width: 100%; */
+    padding-left: 1px 3px;
+    border: 2px solid black ;
+    border-radius: 5px;
+    flex-basis: 98%;
+  }
+  textarea:focus{
+    outline: none;
+  }
+.send-icon{
+    cursor: pointer;    
+}
+
+.user-image img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 100%;
+  }
+ 
+ form{
+ width: 100%;
+ }
+ 
+
+@media(max-width:576px){
+    .reply{
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: center ;
+
+    }
+}

@@ -18,13 +18,13 @@ header{
 
 .nav{
     width: 90%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);  
     font-weight: bold;
-    background-color: #ffffff; 
     position: fixed !important;   
     top: 0 !important;
-    /* left: 4rem; */
     z-index: 1;
+    background-color: antiquewhite;
+    margin-top: .3rem;
    
 
 }
@@ -65,18 +65,34 @@ header{
     object-fit: cover;
     border-radius: 50%;
 }
-/*  main-css*/
+/*  main-css* "hero section" */
+
+#hero-section{
+    padding: 2rem 0;
+    padding-top: 15% ;
+    margin-bottom: 7.1rem;
+    background-color: white;
+}
+
+.intro-div{
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    width: 80%;
+    margin: auto;
+    padding:2rem 1rem;
+
+}
+
+/* main-css  'hero section" ends here */
 
 
 
-/* main-css ends here */
-
-/* footer css */
+/* footer css  start here*/
 
 footer{
     margin-top: 3rem;
     padding: 2rem 0;
-    background-color: whitesmoke;
+    background-color: antiquewhite;
     border-radius: 5px;
 
 }
@@ -89,31 +105,22 @@ li>a{
     text-align: justify;
 }
 .fancy-hr{
-    border:none;
     height: 4px;
-    background: linear-gradient(to right,#12121d,#1f14f0);
+    background-color: black;
     border-radius: 10px;
-    width: 55%;
-    margin-bottom: 0;
-    margin-top: 0;
+    min-width: 100%;
+    
 }
 .footer-list>li{
     padding:5px 0;
 }
-.fancy-vr{
-    border:none;
-    height: 100%;
+.vertical-line{
+    min-height: 100%;
     width: 4px;
-    background: linear-gradient(to right,#1f14f0,#c014f0);
     border-radius: 10px;
+    background-color:black;
 
 }
-
-
-
-
-
-
 /* footer css */
 
 
@@ -155,13 +162,14 @@ li>a{
         transform: translateX(-50%);
         width: 0%;
         height: 2px;
-        background-color: rgb(20, 100, 100);
-        visibility: hidden;
+        background-color:black;
+        opacity: 0;
         transition: 0.3s ease-in-out;
     }
-    .nav-link:hover::before,.nav-link.active::before{
+    .active:before{
         width: 90%;
-        visibility: visible;
+        /* visibility: visible; */
+        opacity: 1;
 
     }
 }
@@ -174,5 +182,17 @@ li>a{
         /* background-color: #784BA0; */
         background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
         padding-bottom: 25rem ;
+    }
+}
+
+
+/*hero section media query  */
+@media (max-width:577px){
+  
+    .intro-div{
+        width: 100% ;
+    }
+    #hero-section{
+        margin-top: 40% ;
     }
 }

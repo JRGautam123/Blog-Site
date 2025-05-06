@@ -1,0 +1,46 @@
+/* .card-header{
+    padding: 4rem 0;
+} */
+.card-header{
+    background-color: antiquewhite;
+    color:black;
+    height: 6rem;
+
+}
+.card-header h4{
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+}
+.card-body img{
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.card-footer{
+    background-color: antiquewhite;
+}
+
+.excerpt p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.excerpt a{
+    text-decoration: none;
+    color: black;
+}
+.author{
+    text-decoration: none;
+    color: black;
+    
+}
+.excerpt a:hover{
+    text-decoration: underline;
+    color: black;
+}

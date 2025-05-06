@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "postapp/css/create_post.css" %}">
+    {% comment %} <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> {% endcomment %}
+
+    {{block.super}}
+{% endblock css %}
+
+
+
+
+
+
+{% block body %}
+
+<section id="create-post">
+    <div class="container">
+        <div class="form-container shadow shadow-2 rounded-1">
+           <form action="" method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <datalist id='category-options'>
+                {% for cat in categories %}
+                <option value="{{cat.name}}"></option>
+                {% endfor %}
+            </datalist>
+            <button class="btn bg-dark w-50 my-2 mx-auto text-white rounded-pill d-block" 
+            type='submit'>
+                {% if edit_post %}
+                 Edit Blog
+                {% else %}
+                     Create Blog
+                {% endif %}
+            </button>
+           </form>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
+
