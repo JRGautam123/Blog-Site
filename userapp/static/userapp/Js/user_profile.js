@@ -46,7 +46,6 @@ editProfile.forEach(element => {
 
 const items = document.querySelectorAll(".options-on-lg li");
 const itemList=[...items]
-console.log(itemList)
 var clicked_item=0
 itemList.forEach((item,idx)=>{
   item.addEventListener('click',(event)=>{

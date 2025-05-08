@@ -17,7 +17,7 @@
                 </a>
               </div>
               <div class="bolg-meta text-end w-100">
-                <p class='m-0 p-0'>By<a href="#" class='mx-1 author'>{{post.author.get_full_name}}</a></p>
+                <p class='m-0 p-0'>By<a href="{% url "author_all_posts" author=post.author.username %}" class='mx-1 author'>{{post.author.get_full_name}}</a></p>
                 <time datetime="">Last Updated on : {{post.date|date:"F j, Y"}}</time>
               </div>
             </div>

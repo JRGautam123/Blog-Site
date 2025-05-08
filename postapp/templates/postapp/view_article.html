@@ -42,8 +42,9 @@
             </div>
             <hr>
             <div class='d-flex justify-content-between align-items-center'>
-                {% if  user == post.author %}
+                {% if  user.is_authenticated and user == post.author %}
                 <a href="{% url "edit-post" slug=post.slug %}" class='btn bg-dark rounded rounded-pill text-white w-25'>Edit Blog</a>
+                <a href="{% url "delete-post" slug=post.slug %}" class='btn bg-dark rounded rounded-pill text-white w-25'>Delete Post</a>
                 {% endif %}
                 <div class="post-info fs-5 fw-bold  d-flex  flex-column align-items-end">
                     <a href=""><address class='m-0 p-0'>{{post.author.get_full_name|title}}</address></a>

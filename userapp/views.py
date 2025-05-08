@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from .forms import UserRegistrationForm,UserUpdateFrom,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-
+from postapp.models import Post
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -32,4 +34,17 @@ def profile_view(request):
     else:
         user_form=UserUpdateFrom(instance=request.user)
         profile_form=ProfileUpdateForm(instance=request.user.userprofile)
-    return render(request=request,template_name='userapp/user_profile.html',context= {'u_form':user_form,'p_form':profile_form})
+    return render(request=request,template_name='userapp/user_profile.html',
+context= {'u_form':user_form,'p_form':profile_form})
+
+def author_all_posts(request,author):
+    user=User.objects.get(username=author)
+
+    posts=Post.objects.filter(author=user).order_by('-date')
+    print(posts)
+    paginator=Paginator(posts,3)
+    page=request.GET.get('page')
+    post_objs=paginator.get_page(page)
+    return render(request,'userapp/author_all_posts.html',{'posts':post_objs,'user_name':user.get_full_name() or user.username})
+
+

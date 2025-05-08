@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static "postapp/css/blog_card.css" %}">
+{{block.super}}
+{% endblock css %}
+
+
+{% block body %}
+    <section id="hero-section">
+        <div class="card-wrapper shadow shadow-2 py-4 container rounded-2 ">
+            <h3>All Posts From {{user_name}}</h3>
+            <hr>
+            {% include "postapp/includes/blog_card.html" with latest_posts=posts %}
+
+        </div>
+        <hr>
+        <div class="pagination d-flex justify-content-center my-2">
+            <nav aria-label="Page navigation example " >
+            <ul class="pagination">
+                {% if  posts.has_previous %}
+                <li class="page-item "><a class="page-link bg-dark text-white" href="?page={{posts.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{posts.number}}">1</a></li>
+                {% if posts.has_next %}
+                <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{posts.next_page_number}}">Next</a></li>
+                {% endif %}
+            </ul>
+            </nav>
+
+        </div>
+    </section>
+{% endblock body %}

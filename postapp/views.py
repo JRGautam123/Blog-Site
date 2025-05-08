@@ -229,3 +229,10 @@ def edit_post(request,slug):
     else:
             form=PostForm(instance=post,initial={'category_input':post.category.name})
     return render(request,'postapp/create_post.html',{'form':form,'edit_post':True,'categories':categories})
+
+
+def delete_post(request, slug):
+    post = Post.objects.get(slug=slug)
+    author_username = post.author.username
+    post.delete()
+    return redirect('author_all_posts', author=author_username)
