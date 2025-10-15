@@ -1,0 +1,30 @@
+# SECRET_KEY='django secret key'
+SECRET_KEY=
+ALLOWED_HOSTS=
+
+DB_NAME=
+DB_USER=
+DB_PASS=
+DB_HOST=
+DB_PORT=
+
+DEBUG=
+
+
+# EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS=True
+# EMAIL_HOST="smtp.gmail.com"
+# EMAIL_HOST_USER="example@mail.com"
+# EMAIL_HOST_PASSWORD="password"
+# EMAIL_PORT=587
+
+# SESSION_COOKIE_DOMAIN='.shikshya.org'
+# SITE_DOMAIN='http://anotherdomain.net:5173/'
+
+# SESSION_COOKIE_SECURE=True
+# SESSION_COOKIE_SAMESITE=None
+# CSRF_COOKIE_SAMESITE=None
+# CSRF_COOKIE_SECURE=True
+
+# SENTRY_DSN=
+# SENTRY_ENVIRONMENT=
