@@ -48,7 +48,7 @@ def render_article_page(request):
     }
 
     return render(request=request,template_name='postapp/articles.html',context=context)
-    
+
 
 
 
@@ -58,7 +58,7 @@ def render_full_article(request,slug):
     user_has_liked=False
     if request.user.is_authenticated:
         user_has_liked=Like.objects.filter(user=request.user,post=requested_post).exists()
-    
+
     parent_comments=Comments.objects.filter(post=requested_post,parent_id__isnull=True ).order_by('-date')
 
 
@@ -109,7 +109,7 @@ def post_comment(request,slug):
                'descendant_count':len(comment.get_all_descendents())
             }
         else:
-            
+
             super_parent_id=data.get('super_parent_id')
             parent_id=data.get('parent_id')
             super_parent_comment=Comments.objects.get(id=super_parent_id)
@@ -125,7 +125,7 @@ def post_comment(request,slug):
                 profile_pic=comment.user.userprofile.image.url
             else:
                 profile_pic=""
-        
+
 
             response_data={
                 'comment_id':comment.id,
@@ -165,7 +165,7 @@ def toggle_like(request,slug):
             action='unliked'
         else:
             action='liked'
-        
+
         like_count=Like.objects.filter(post=post).count()
         return JsonResponse(
             {'action':action,
@@ -182,10 +182,10 @@ def create_post(request):
     categories=Category.objects.all()
     if request.method=="POST":
         form=PostForm(request.POST,request.FILES)
-       
+
         if form.is_valid():
             post=form.save(commit=False)
-          
+
             category_name=form.cleaned_data['category_input'].strip()
             category,created=Category.objects.get_or_create(
                 name__iexact=category_name,
@@ -194,14 +194,13 @@ def create_post(request):
             post.author=request.user
             post.category=category
             post.save()
-            print(post.title)
             return redirect('full-article', slug=post.slug)
 
 
 
     else:
         form=PostForm()
-       
+
     return render(request=request,template_name='postapp/create_post.html',context={
         'form':form,
         'categories':categories
@@ -215,7 +214,7 @@ def edit_post(request,slug):
         form=PostForm(request.POST,request.FILES,instance=post)
         if form.is_valid():
             post=form.save(commit=False)
-          
+
             category_name=form.cleaned_data['category_input'].strip()
             category,created=Category.objects.get_or_create(
                 name__iexact=category_name,
