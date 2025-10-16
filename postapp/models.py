@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django_quill.fields import QuillField
+from django.contrib.auth import get_user_model
 
 
-# Create your models here.
+User = get_user_model()
 
 class Category(models.Model):
     name=models.CharField(max_length=100,unique=True)
@@ -17,9 +17,6 @@ class Category(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
-
-
-
 
 class Post(models.Model):
     author=models.ForeignKey(User,on_delete=models.CASCADE)
