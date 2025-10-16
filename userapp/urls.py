@@ -1,5 +1,5 @@
 from django.urls import path
-from .import views
+from . import views
 from django.contrib.auth.views import LoginView,LogoutView
 
 urlpatterns = [
@@ -8,5 +8,5 @@ urlpatterns = [
 
     path('register',views.register,name='user-register'),
     path('profile',views.profile_view,name='profile'),
-    path('<str:author>/all_posts/',views.author_all_posts,name='author_all_posts')
+    path('<int:author>/all_posts/',views.author_all_posts,name='author_all_posts')
 ]

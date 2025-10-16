@@ -3,10 +3,9 @@ from .forms import UserRegistrationForm,UserUpdateFrom,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from postapp.models import Post
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
-# Create your views here.
-
+User = get_user_model()
 def register(request):
     try:
         if request.method=='POST':
@@ -24,27 +23,28 @@ def register(request):
 
 @login_required
 def profile_view(request):
-    if request.method=="POST":
-        user_form=UserUpdateFrom(request.POST,instance=request.user)
-        profile_form=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.userprofile)
+    if request.method == "POST":
+        user_form=UserUpdateFrom(request.POST, instance=request.user)
+        profile_form=ProfileUpdateForm(request.POST,request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             return redirect("profile")
     else:
         user_form=UserUpdateFrom(instance=request.user)
-        profile_form=ProfileUpdateForm(instance=request.user.userprofile)
-    return render(request=request,template_name='userapp/user_profile.html',
-context= {'u_form':user_form,'p_form':profile_form})
+        profile_form=ProfileUpdateForm(instance=request.user.profile)
+    return render(
+        request=request,template_name='userapp/user_profile.html', 
+        context= {'u_form':user_form, 'p_form':profile_form}
+    )
 
 def author_all_posts(request,author):
-    user=User.objects.get(username=author)
+    user=User.objects.get(pk=author)
 
     posts=Post.objects.filter(author=user).order_by('-date')
-    print(posts)
     paginator=Paginator(posts,3)
     page=request.GET.get('page')
     post_objs=paginator.get_page(page)
-    return render(request,'userapp/author_all_posts.html',{'posts':post_objs,'user_name':user.get_full_name() or user.username})
+    return render(request,'userapp/author_all_posts.html',{'posts':post_objs,'user_name':user.get_fullname()})
 
 

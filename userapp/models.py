@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
 
 class UserProfile(TimeStampedModel):
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile')
-    image = models.ImageField(upload_to='profile_pic')
+    image = models.ImageField(upload_to='profile_pic', blank=True, null=True)
 
     def __str__(self):
-        self.user.get_fullname()
+       return self.user.get_fullname()

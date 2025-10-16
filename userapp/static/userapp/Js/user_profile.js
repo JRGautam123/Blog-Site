@@ -13,14 +13,7 @@ var disableEnableFields = (status ) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     disableEnableFields(true);
-    // const firstLi=document.querySelector(".first-li")
-    // firstLi.class
 });
-
-
-
-
-
 
 
 editProfile.forEach(element => {
@@ -40,9 +33,6 @@ editProfile.forEach(element => {
 });
 
 // adding backgound effect in user profile manipulation options 
-
-
-
 
 const items = document.querySelectorAll(".options-on-lg li");
 const itemList=[...items]
