@@ -5,25 +5,23 @@ from .models import UserProfile
 
 User = get_user_model()
 class UserRegistrationForm(UserCreationForm):
-    email=forms.EmailField(label='Email Address', required=True, error_messages={"required":'Email field must not be empty'})
     profile_pic=forms.ImageField(label='Profile Picture',required=False)
-
     class Meta:
         model = User
         fields=['email','password1','password2','profile_pic','first_name', 'middle_name','last_name']
 
-    
     def save(self,commit=True):
+        profile_pic = self.cleaned_data.pop("profile_pic", None)
         user=super().save(commit=False)
-        # user.email=self.cleaned_data['email']
+
         if commit:
+            user.is_active = False
             user.save()
-            image = self.cleaned_data.get('profile_pic')
-            if image:
-                user.userprofile.image = image
-                user.userprofile.save()
+
+        UserProfile.objects.create(user=user, image=profile_pic)
+
         return user
-    
+
 class UserUpdateFrom(forms.ModelForm):
     class Meta:
         model = User

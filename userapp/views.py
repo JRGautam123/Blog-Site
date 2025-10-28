@@ -1,5 +1,9 @@
 from django.shortcuts import render,redirect
-from .forms import UserRegistrationForm,UserUpdateFrom,ProfileUpdateForm
+from .forms import (
+    UserRegistrationForm,
+    UserUpdateFrom,
+    ProfileUpdateForm,
+)
 from django.contrib.auth.decorators import login_required
 from postapp.models import Post
 from django.core.paginator import Paginator
@@ -8,17 +12,17 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 def register(request):
     try:
-        if request.method=='POST':
-            form=UserRegistrationForm(request.POST,request.FILES)
+        if request.method == 'POST':
+            form=UserRegistrationForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
                 return redirect('home_page')
         else:
-            form=UserRegistrationForm()
-        return render(request,'userapp/register.html',{'form':form})
+            form = UserRegistrationForm()
+        return render(request,'userapp/register.html', {'form':form})
     except Exception as e:
-        return render(request,'userapp/register.html',{'form':form,'error':e})
-
+        print(e)
+        return render(request,'userapp/register.html', {'form':form,'error':e})
 
 
 @login_required

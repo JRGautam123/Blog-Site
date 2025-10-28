@@ -4,7 +4,7 @@ const updateBtn=document.querySelector('.update-btn')
 
 // making the form field disabled initally.
 var disableEnableFields = (status ) => {
-    const fields = document.querySelectorAll("#id_username, #id_first_name, #id_last_name, #id_email, #id_image");
+    const fields = document.querySelectorAll("#id_first_name, #id_middle_name, #id_last_name, #id_email, #id_image");
     fields.forEach(field => {
         field.disabled = status;
     });
