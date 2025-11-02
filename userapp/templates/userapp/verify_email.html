@@ -20,7 +20,7 @@
         
         <!-- Content -->
         <div class="content">
-            <h2>Hello, </h2>
+            <h2>Hello, {{ user.first_name }} jee, </h2>
             
             <p>Thank you for signing up for <strong>Universal Canvas</strong>! We're excited to have you on board.</p>
             
@@ -28,20 +28,20 @@
             
             <!-- Verification Button -->
             <div class="button-container">
-                <a href="https://yourapp.com/verify?token=abc123xyz789" class="verify-button">
+                <a href=" {{ link }} " class="verify-button">
                     Verify Email Address
                 </a>
             </div>
             
             <div class="expiry-info">
-                ⏰ This link will expire in <strong>24 hours</strong>
+                ⏰ This link will expire in <strong> 15 minutes.  </strong>
             </div>
             
             <!-- Alternative Link -->
             <div class="alternative-link">
                 <p><strong>Button not working?</strong> Copy and paste this link into your browser:</p>
-                <a href="https://yourapp.com/verify?token=abc123xyz789">
-                    https://yourapp.com/verify?token=abc123xyz789
+                <a href="{{ link }} ">
+                    {{ link  }}
                 </a>
             </div>
             

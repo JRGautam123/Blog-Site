@@ -131,6 +131,7 @@ STATICFILES_DIRS=[BASE_DIR/'static']
 MEDIA_URL='/user-media/'
 MEDIA_ROOT=BASE_DIR/'uploads'
 
+APP_DOMAIN = env.str("SITE_DOMAIN")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -141,3 +142,10 @@ AUTH_USER_MODEL = "userapp.User"
 LOGIN_REDIRECT_URL='home_page'
 LOGOUT_REDIRECT_URL='login'
 LOGIN_URL='login'
+
+EMAIL_BACKEND=env.str("EMAIL_BACKEND")
+EMAIL_USE_TLS=env.bool("EMAIL_USE_TLS")
+EMAIL_HOST=env.str("EMAIL_HOST")
+EMAIL_HOST_USER=env.str("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD=env.str("EMAIL_HOST_PASSWORD")
+EMAIL_PORT=env.int("EMAIL_PORT")    

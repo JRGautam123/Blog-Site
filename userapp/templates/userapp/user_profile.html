@@ -61,7 +61,7 @@
             <div class="user-details-container d-flex justify-content-center">
                 <div class="profile-pic-container  col-lg-4   ">
                   {% if user.userprofile.image %}
-                    <img src="{{user.userprofile.image.url}}" alt="User profile">
+                    <img src="{{ user.userprofile.image.url }}" alt="User profile">
                   {% else %}
                     <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740", alt="User profile">
                   {% endif %}

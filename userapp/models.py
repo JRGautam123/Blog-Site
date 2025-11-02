@@ -31,6 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
 
     password_rest_token = models.CharField(max_length=6, blank=True, null=True)
     password_rest_token_sent_at = models.DateTimeField(blank=True, null=True)
+    is_email_send_failed = models.BooleanField(default=False)
 
     objects = UserManager()
 

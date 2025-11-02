@@ -7,7 +7,52 @@ from .forms import (
 from django.contrib.auth.decorators import login_required
 from postapp.models import Post
 from django.core.paginator import Paginator
+from django.utils.encoding import force_bytes
+from django.utils import timezone
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.template.loader import get_template
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from blogsite.utils import EmailThread, generate_verification_token
+
+
+def send_mail(user):
+    """
+        It sends an email to the user with a link to verify their account
+        :param: The user object that is being sent the email.
+    """
+
+    subject = "Verify your Universal Canvas Account"
+    email_from = settings.EMAIL_HOST_USER
+    app_domain = settings.APP_DOMAIN
+
+    # generate and save the tokne before sending the email.
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = generate_verification_token()
+    user.email_verification_token = token
+    user.verification_link_sent_at  = timezone.now()
+    user.is_email_send_failed = False
+    user.save()
+
+    context = {
+        "user": user,
+        "app_domain": app_domain,
+        'link': f"{app_domain}/verify/{uid}/{token}"
+    }
+    template = get_template("userapp/verify_email.html")
+    html_messag = template.render(context=context)
+    
+    msg  = EmailMultiAlternatives(
+        subject=subject,
+        body=html_messag,
+        from_email=email_from,
+        to=[user.email]
+    )
+    msg.attach_alternative(html_messag, "text/html")
+    EmailThread(msg=msg, token=token, user=user).start()
+    
 
 User = get_user_model()
 def register(request):
@@ -15,7 +60,8 @@ def register(request):
         if request.method == 'POST':
             form=UserRegistrationForm(request.POST, request.FILES)
             if form.is_valid():
-                form.save()
+                user = form.save()
+                send_mail(user)
                 return redirect('home_page')
         else:
             form = UserRegistrationForm()
@@ -23,6 +69,12 @@ def register(request):
     except Exception as e:
         print(e)
         return render(request,'userapp/register.html', {'form':form,'error':e})
+
+# user email verification.
+def verify_email(request, uuid, token):
+    pass
+
+
 
 
 @login_required
