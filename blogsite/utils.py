@@ -16,10 +16,9 @@ def generate_otp():
     return str(random.randint(100000, 999999))
 
 class EmailThread(threading.Thread):
-    def __init__(self, msg, token, user=None):
+    def __init__(self, msg, user=None):
         self.msg = msg
         self.user = user
-        self.token = token
         super().__init__()
 
     def run(self):

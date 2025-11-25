@@ -94,15 +94,15 @@ def post_comment(request,slug):
                 comment=data.get('comment')
             )
 
-            if comment.user.userprofile.image:
-                profile_pic=comment.user.userprofile.image.url
+            if comment.user.profile.image:
+                profile_pic=comment.user.profile.image.url
             else:
                 profile_pic=""
 
             response_data={
                'comment_id':comment.id,
                'comment':comment.comment,
-               'user_name':request.user.get_full_name()  or request.user.username,
+               'user_name':request.user.get_fullname()  or request.user.username,
                'date':timesince(comment.date),
                'image':profile_pic,
                'post_slug':slug,
@@ -121,8 +121,8 @@ def post_comment(request,slug):
                 parent_id=parent_comment
             )
 
-            if comment.user.userprofile.image:
-                profile_pic=comment.user.userprofile.image.url
+            if comment.user.profile.image:
+                profile_pic=comment.user.profile.image.url
             else:
                 profile_pic=""
 
@@ -130,8 +130,8 @@ def post_comment(request,slug):
             response_data={
                 'comment_id':comment.id,
                 'comment':comment.comment,
-               'user_name':request.user.get_full_name()  or request.user.username,
-               'replied_to':parent_comment.user.get_full_name() or parent_comment.user.username,
+               'user_name':request.user.get_fullname(),
+               'replied_to':parent_comment.user.get_fullname(),
                'date':timesince(comment.date),
                'image':profile_pic,
                'parent_id':comment.parent_id.id,
@@ -139,6 +139,7 @@ def post_comment(request,slug):
                'descendant_count':len(super_parent_comment.get_all_descendents()),
                'super_parent_id':super_parent_id
             }
+            print(response_data)
 
         return JsonResponse({'response':response_data}, status=200)
 
