@@ -1,0 +1,59 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel='stylesheet', href="{% static "userapp/css/verify_otp.css" %}">
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📧</div>
+        <h1>Verify Your Code</h1>
+        <p class="subtitle">We've sent a 6-digit verification code to<br><strong id="userEmail"></strong></p>
+        
+        <div id="alertBox" class="{% if success %} success {% endif %}">
+            {% if error %}
+            <p>{{ error }}</p>
+            {% endif %}
+            {% if success %}
+            <p>{{ success }}</p>
+            {% endif %}
+        </div
+        
+        <form id="verifyOtpForm">
+            <div class="form-group">
+                <label>Enter Verification Code</label>
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="0">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="1">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="2">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="3">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="4">
+                    <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" data-index="5">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                <span id="btnText">Verify Code</span>
+            </button>
+
+
+            <div class="resend-section">
+                <span>Didn't receive the code?</span>
+                <button type="button" class="btn-secondary" id="resendBtn">
+                    Resend Code
+                </button>
+            </div>
+            
+            <div class="text-center">
+                <a href="{% url 'forgot_password' %}" class="link">← Back</a>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>
