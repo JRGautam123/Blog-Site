@@ -32,6 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     password_rest_token = models.CharField(max_length=6, blank=True, null=True)
     password_rest_token_sent_at = models.DateTimeField(blank=True, null=True)
     is_email_send_failed = models.BooleanField(default=False)
+    is_otp_verified = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -41,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         ordering = ("-created_at", )
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'middle_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
 
     def get_fullname(self):
