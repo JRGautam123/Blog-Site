@@ -19,7 +19,10 @@ from django.core.mail import EmailMultiAlternatives
 from blogsite.utils import EmailThread, generate_verification_token, generate_otp
 from datetime import timedelta
 from django.contrib.auth import login
-
+import json
+from django.http import JsonResponse
+from http import HTTPStatus
+from django.urls import reverse
 
 
 User = get_user_model()
@@ -68,7 +71,7 @@ def send_otp(user, otp):
     email_from = settings.EMAIL_HOST_USER
 
     # generate and save the OPT before sending the mail
-    user.password_reset_token = otp
+    user.password_rest_token = otp
     user.password_rest_token_sent_at = timezone.now()
     user.is_email_send_failed = False
     user.save()
@@ -193,3 +196,80 @@ def resend_email_verification_link(request):
         return render(request, "userapp/resend_email_verification_link.html", context={"success": "We have sent you a mail with a email verification Link. Please Check your Email."})
     if request.method == "GET":
         return render(request, "userapp/resend_email_verification_link.html")
+    
+
+def verify_otp(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        otp = data.get('otp')
+
+        if not otp:
+            return JsonResponse(
+                {"error": "Please send the  otp that we have sent you in your email."},
+                status=400
+            )
+        email = request.session.get("reset_email")
+        if email and otp:
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                return JsonResponse(
+                    {
+                        "error": "User with this email doesn't exist."
+                    },
+                    status=400
+                )
+            otp_expiry_time = user.password_rest_token_sent_at + timedelta(minutes=5)
+
+            if timezone.now() > otp_expiry_time :
+                return JsonResponse({
+                    "error": "Opt expired."
+                }, status=400)
+            
+            if user.password_rest_token == otp:
+                user.is_otp_verified = True
+                user.save()
+
+                return JsonResponse({
+                    "success": True,
+                    "redirect_url": reverse('reset_password')
+                })
+            return JsonResponse({
+                "error": 'invalid otp'
+            }, status=400)
+    return redirect(reverse('forgot_password'))
+
+
+def reset_password(request):
+
+    email = request.session.get('reset_email')
+    print(email)
+    try:
+        user = User.objects.get(email=email)
+    except  User.DoesNotExist:
+        return redirect(reverse("user_register"))
+    
+    if request.method == 'POST':
+        password1 = request.POST.get("newPassword")
+        password2 = request.POST.get("confirmPassword")
+
+        if password1 != password2:
+            return render(
+                request, 
+                "userapp/reset_password.html",
+                context={'error':"password1 doesn't match with password2"}
+            )
+        
+        user.set_password(password1)
+        user.is_otp_verified = False
+        user.password_rest_token = None
+        user.password_rest_token_sent_at = None
+        user.save()
+        
+        return redirect(reverse("login"))
+
+    if request.method == 'GET':
+        if not user.is_otp_verified:
+            return redirect(reverse("forgot_password"))
+        
+        return render(request, "userapp/reset_password.html")

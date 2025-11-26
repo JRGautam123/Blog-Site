@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify OTP</title>
     <link rel='stylesheet', href="{% static "userapp/css/verify_otp.css" %}">
+    <script src="{% static 'userapp/Js/verify_otp.js' %}" defer></script>
+
 </head>
 <body>
     <div class="container">
@@ -14,14 +16,7 @@
         <h1>Verify Your Code</h1>
         <p class="subtitle">We've sent a 6-digit verification code to<br><strong id="userEmail"></strong></p>
         
-        <div id="alertBox" class="{% if success %} success {% endif %}">
-            {% if error %}
-            <p>{{ error }}</p>
-            {% endif %}
-            {% if success %}
-            <p>{{ success }}</p>
-            {% endif %}
-        </div
+
         
         <form id="verifyOtpForm">
             <div class="form-group">
@@ -52,6 +47,14 @@
                 <a href="{% url 'forgot_password' %}" class="link">← Back</a>
             </div>
         </form>
+        <div id="alertBox" class="{% if success %} success {% endif %}">
+            {% if error %}
+            <p>{{ error }}</p>
+            {% endif %}
+            {% if success %}
+            <p>{{ success }}</p>
+            {% endif %}
+        </div
     </div>
 
 
