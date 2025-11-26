@@ -172,11 +172,13 @@ def forgot_password(request):
             user  = User.objects.get(email=email)
 
         except User.DoesNotExist:
+            messages.error(request, "User with this mail doesn't exist. please register first.")
             return render(request, "userapp/forgot_password.html", context={"error": "User Doesn't exist"})
 
         otp_code = generate_otp()
         send_otp(user, otp_code)
         request.session['reset_email'] = email
+        messages.success(request, "OTP code has been sent successfully. Please check your email")
         return render(request, "userapp/verify_otp.html", context={"success": "OTP code has been sent successfully. Please Check your email"})
 
     if request.method == "GET":

@@ -1,0 +1,52 @@
+<style>
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    padding: 12px 20px;
+    margin-top: 10px;
+    border-radius: 6px;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    animation: slide-in 0.4s ease;
+}
+
+.toast.success { background: #16a34a; }
+.toast.error { background: #dc2626; }
+.toast.warning { background: #eab308; }
+.toast.info { background: #2563eb; }
+
+.toast .close-btn {
+    cursor: pointer;
+    font-weight: bold;
+    padding-left: 10px;
+    color: white;
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateX(100%); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+</style>
+
+{% if messages %}
+<div class="toast-container">
+    {% for message in messages %}
+        <div class="toast {{ message.tags }}">
+            <span>{{ message }}</span>
+
+            <!-- ❌ dismiss button -->
+            <span class="close-btn" onclick="this.parentElement.remove()">×</span>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
