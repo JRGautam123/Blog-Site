@@ -1,0 +1,56 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <link rel = "stylesheet", href = "{%  static "userapp/css/send_email_verification_link.css" %}">
+
+</head>
+<body>
+    {% comment %} {%  if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div>
+            class="alert {% if messages.tags %}alert-{{ messages.tags }} {% endif %}"
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+     {% endcomment %}
+    <div class="container">
+        <div class="icon">🔒</div>
+        <h1>Resend Email Verification Link?</h1>
+        <p class="subtitle">Enter your email address and we'll send you a verification link  to verifiy your email.</p>
+        
+        <div id="alertBox" class="{% if error %} error {% elif success %} success {% endif %}">
+            {% if error %}
+            <p>{{ error  }}</p>
+            {% endif %}
+            {% if success %}
+            <p>{{ success  }}</p>
+            {% endif %}
+        </div>
+        
+        <form id="forgotPasswordForm" method='POST' action= " {% url 'resend_email_verification_link' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" >
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                <span id="btnText">Send Verification Link</span>
+            </button>
+            
+            <div class="text-center">
+                <a href="{% url "login" %}" class="link">Back to Login</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

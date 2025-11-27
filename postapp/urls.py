@@ -9,5 +9,5 @@ urlpatterns = [
     path('edit-post/<slug:slug>/',views.edit_post,name='edit-post'),
     path("<slug:slug>/like",views.toggle_like,name='toggle_like'),
     path("<slug:slug>/comment",views.post_comment,name='comment'),
-    path('delete-post/<slug:slug>/',views.delete_post,name='delete-post')
+    path('delete-post/<slug:slug>/',views.delete_post,name='delete-post'),
 ]

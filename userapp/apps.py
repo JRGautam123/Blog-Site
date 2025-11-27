@@ -6,6 +6,6 @@ class UserappConfig(AppConfig):
     name = 'userapp'
     
     
-    def ready(self):
-        import userapp.signals
+    # def ready(self):
+    #     import userapp.signals
 

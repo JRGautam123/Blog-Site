@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <link rel = "stylesheet", href = "{%  static "userapp/css/verify_email.css" %}">
+
+
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔐 Verify Your Email</h1>
+            <p>One step closer to getting started!</p>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <h2>Hello, {{ user.first_name }} jee, </h2>
+            
+            <p>Thank you for signing up for <strong>Universal Canvas</strong>! We're excited to have you on board.</p>
+            
+            <p>To complete your registration and start using your account, please verify your email address by clicking the button below:</p>
+            
+            <!-- Verification Button -->
+            <div class="button-container">
+                <a href=" {{ link }} " class="verify-button">
+                    Verify Email Address
+                </a>
+            </div>
+            
+            <div class="expiry-info">
+                ⏰ This link will expire in <strong> 1 Day.  </strong>
+            </div>
+            
+            <!-- Alternative Link -->
+            <div class="alternative-link">
+                <p><strong>Button not working?</strong> Copy and paste this link into your browser:</p>
+                <a href="{{ link }} ">
+                    {{ link  }}
+                </a>
+            </div>
+            
+            <!-- Verification Box -->
+            <div class="verification-box">
+                <p><strong>Why verify your email?</strong></p>
+                <p>Email verification helps us ensure that you're a real person and helps protect your account from unauthorized access.</p>
+            </div>
+            
+            <!-- Security Notice -->
+            <div class="security-notice">
+                <p>⚠️ <strong>Security Notice:</strong> If you didn't create an account with us, please ignore this email. Your email address will not be used without verification.</p>
+            </div>
+            
+            <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
+            
+            <p>Best regards,<br>
+            <strong>The YourApp Team</strong></p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Universal Canvas</strong></p>
+            <p>Mulpani-06, Srijana Tole.</p>
+            <p>Kathmandu Nepal</p>
+            
+            <div class="social-links">
+                <a href="#">Facebook</a> |
+                <a href="#">Twitter</a> |
+                <a href="#">LinkedIn</a>
+            </div>
+            
+            <p style="margin-top: 20px;">
+                <a href="#">Unsubscribe</a> | 
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a>
+            </p>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #999;">
+                © 2024 YourApp. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

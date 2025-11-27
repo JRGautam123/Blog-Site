@@ -4,7 +4,7 @@ const updateBtn=document.querySelector('.update-btn')
 
 // making the form field disabled initally.
 var disableEnableFields = (status ) => {
-    const fields = document.querySelectorAll("#id_username, #id_first_name, #id_last_name, #id_email, #id_image");
+    const fields = document.querySelectorAll("#id_first_name, #id_middle_name, #id_last_name, #id_email, #id_image");
     fields.forEach(field => {
         field.disabled = status;
     });
@@ -13,14 +13,7 @@ var disableEnableFields = (status ) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     disableEnableFields(true);
-    // const firstLi=document.querySelector(".first-li")
-    // firstLi.class
 });
-
-
-
-
-
 
 
 editProfile.forEach(element => {
@@ -40,9 +33,6 @@ editProfile.forEach(element => {
 });
 
 // adding backgound effect in user profile manipulation options 
-
-
-
 
 const items = document.querySelectorAll(".options-on-lg li");
 const itemList=[...items]

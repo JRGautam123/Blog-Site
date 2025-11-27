@@ -12,9 +12,8 @@
 ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js
-' defer></script>
-    <script src="{% static  "userapp/js/user_profile.js" %}" defer></script>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js' defer></script>
+    <script src="{% static  "userapp/Js/user_profile.js" %}" defer></script>
 </head>
 <body>
 {% comment %} userprofile section {% endcomment %}
@@ -30,7 +29,7 @@
         <div class="offcanvas-body">
           <ul class='profile-options options-on-sm'>
             <li class='first-li'><i class="fa-solid fa-user me-2"></i>Profile</li>
-            <a href="{% url "author_all_posts" author=user.username %}"><li class='my-blogs'><i class="fa-solid fa-book-open me-2 "></i>My Blogs</li></a>
+            <a href="{% url "author_all_posts" author=user.id %}"><li class='my-blogs'><i class="fa-solid fa-book-open me-2 "></i>My Blogs</li></a>
             <a href="{% url "create-post" %}"><li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li></a>
             <li class='edit-profile'><i class="fa-solid fa-user-pen me-2 "></i>Edit Profile</li>
           </ul>
@@ -47,7 +46,7 @@
           <div class="col-lg-2 col-md-2 d-none d-md-flex justify-content-between flex-column m-0 p-0 rounded-1 options">
             <ul class='profile-options options-on-lg w-100 d-flex flex-column align-items-center '>
               <li class="first-li clicked-li"><i class="fa-solid fa-user me-2"></i>Profile</li>
-              <a href="{% url "author_all_posts" author=user.username %}"><li class='my-blogs'><i class="fa-solid fa-book-open me-2 "></i>My Blogs</li></a>
+              <a href="{% url "author_all_posts" author=user.id %}"><li class='my-blogs'><i class="fa-solid fa-book-open me-2 "></i>My Blogs</li></a>
               <a href="{% url 'create-post' %}"><li><i class="fa-solid fa-pencil me-1"></i>Create Blog</li></a>
               <li class='edit-profile'><i class="fa-solid fa-user-pen me-2  big"></i>Edit Profile</li>
             </ul>
@@ -62,7 +61,7 @@
             <div class="user-details-container d-flex justify-content-center">
                 <div class="profile-pic-container  col-lg-4   ">
                   {% if user.userprofile.image %}
-                    <img src="{{user.userprofile.image.url}}" alt="User profile">
+                    <img src="{{ user.userprofile.image.url }}" alt="User profile">
                   {% else %}
                     <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740", alt="User profile">
                   {% endif %}
@@ -72,12 +71,12 @@
                   <form action="{% url 'profile' %}" method="POST" enctype='multipart/form-data'>
                       {% csrf_token %}
                        <div class="mb-2">
-                        <p class="m-0"> {{u_form.username.label_tag}}</p>
-                        {{u_form.username}}
-                       </div>
-                       <div class="mb-2">
                         <p class="m-0"> {{u_form.first_name.label_tag}}</p>
                         {{u_form.first_name}}
+                       </div>
+                       <div class="mb-2">
+                        <p class="m-0"> {{u_form.middle_name.label_tag}}</p>
+                        {{u_form.middle_name}}
                        </div>
                        <div class="mb-2">
                         <p class="m-0"> {{u_form.last_name.label_tag}}</p>

@@ -17,7 +17,7 @@
                         <div class="card-title text-center">
                             <h4>Registration Form</h4>
                             {% if error %}
-                                <p class='alert alert-danger' role='alert'>{{error}}</p>
+                                <p class='alert alert-danger' role='alert'>Some Error Occured.</p>
                             {% endif %}
                         </div>
                     </div>
@@ -25,11 +25,11 @@
                     <form action="register" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             
-                            <!-- Username -->
+                            <!-- email -->
                             <div class="mb-2">
-                                <p class="m-0">{{ form.username.label_tag }}</p>
-                                {{ form.username }}
-                                {% for error in form.username.errors %}
+                                <p class="m-0">{{ form.email.label_tag }}</p>
+                                {{ form.email }}
+                                {% for error in form.email.errors %}
                                     <small class="text-danger">{{ error }}</small>
                                 {% endfor %}
                             </div>
@@ -42,21 +42,21 @@
                                     <small class="text-danger">{{ error }}</small>
                                 {% endfor %}
                             </div>
-                        
+                            
+                           <!-- middle Name -->
+                            <div class="mb-2">
+                                <p class="m-0">{{ form.middle_name.label_tag }}</p>
+                                {{ form.middle_name }}
+                                {% for error in form.middle_name.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                {% endfor %}
+                            </div>
+
                             <!-- Last Name -->
                             <div class="mb-2">
                                 <p class="m-0">{{ form.last_name.label_tag }}</p>
                                 {{ form.last_name }}
                                 {% for error in form.last_name.errors %}
-                                    <small class="text-danger">{{ error }}</small>
-                                {% endfor %}
-                            </div>
-                        
-                            <!-- Email -->
-                            <div class="mb-2">
-                                <p class="m-0">{{ form.email.label_tag }}</p>
-                                {{ form.email }}
-                                {% for error in form.email.errors %}
                                     <small class="text-danger">{{ error }}</small>
                                 {% endfor %}
                             </div>
@@ -102,6 +102,9 @@
                                 <button class="btn btn-success w-100" type="submit">Register</button>
                                 <small class="text-muted d-block mt-2">
                                     Already have an account? <a href="{% url "login" %}">Login here</a>
+                                </small>
+                                <small class="text-muted d-block mt-2">
+                                    Already Reistered? <a href="{% url "resend_email_verification_link" %}">Resend Verification Link</a>
                                 </small>
                             </div>
                     </form>
